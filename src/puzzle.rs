@@ -25,11 +25,13 @@ impl<'a> Puzzle<'a> {
         puzzle
     }
 
+    /// Adds `word` to `self.board`
     pub fn update(&mut self, word: &'a str, variant: &'a str, points: Vec<Point>) {
         self.place(variant, points.clone());
         self.placed.insert(String::from(word), points);
     }
 
+    /// Attempts to locate a position on `self.board` for the provided `candidate`
     pub fn find_fit(&mut self, candidate: &'a str, variants: &'a [String]) -> Option<(&'a str, Vec<Point>)> {
         let candidate_substrs: HashSet<&str> = HashSet::from_iter(Puzzle::split(candidate));
         for existing in &self.on_board() {
@@ -53,6 +55,8 @@ impl<'a> Puzzle<'a> {
         candidates.choose(&mut thread_rng()).unwrap()
     }
 
+    /// Determines if the proivded `cand` disrupts the already existing
+    /// pieces on `self.board`
     pub fn is_disruptive(&self, cand: &str, coords: &[Point]) -> bool {
         let point_map = Puzzle::point_map(cand, coords);
         let mut row_word = String::from("");
@@ -81,6 +85,7 @@ impl<'a> Puzzle<'a> {
         false
     }
 
+    /// Places `word` at the given `points` on our `self.board`
     pub fn place(&mut self, word: &'a str, points: Vec<Point>) {
         let mut i = 0;
         for e in Puzzle::split(word) {
@@ -101,6 +106,10 @@ impl<'a> Puzzle<'a> {
         false
     }
 
+    /// Generates word variants from `candidate`
+    /// ```
+    /// word => --word, wo--rd, word--
+    /// ```
     pub fn make_variants(candidate: &str) -> Vec<String> {
         let mut res = vec![candidate.to_string()];
         let split = Puzzle::split(candidate);

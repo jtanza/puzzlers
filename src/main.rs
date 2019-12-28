@@ -3,7 +3,11 @@ use puzzle::Puzzle;
 
 mod puzzle;
 
-fn main() {
+/// # Program Arguments
+///
+/// * [0] - path to a newline separated dictionary of words
+/// * [1] - number of puzzles you'd like to generate
+pub fn main() {
     let variation_map = Puzzle::build_var_map(std::env::args().nth(1).expect("no path given").as_str());
     let iters = std::env::args().nth(2).expect("no iters given").parse::<i32>().unwrap();
     let candidates = variation_map.keys().cloned().collect::<Vec<String>>();
