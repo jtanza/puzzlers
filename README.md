@@ -1,6 +1,6 @@
 # wordsquare
 
-Creates word squares where each column/row is two characters wide
+Creates word squares where each column/row is two characters wide.
 
 ```
 jtanza @ ~/rust/wordsquare (master) $ cargo run /usr/share/dict/words 2  
@@ -25,3 +25,7 @@ albedo
 jtanza @ ~/rust/wordsquare (master) $ cat /usr/share/dict/words | grep -wi alcove
 alcove
 ```
+
+Usage:
+
+`cargo run <path-to-newline-separated-dict> <number-of-iterations>`
