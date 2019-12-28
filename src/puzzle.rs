@@ -1,5 +1,6 @@
 use std::str;
 use std::fmt;
+use std::fs;
 use rand::thread_rng;
 use rand::seq::SliceRandom;
 use std::collections::HashSet;
@@ -107,6 +108,14 @@ impl<'a> Puzzle<'a> {
             res.push(format!("{}{}{}", split[0..i].concat(), EMPTY, split[i..split.len()].concat()));
         }
         res
+    }
+
+    pub fn build_var_map(path: &str) -> HashMap<String, Vec<String>> {
+        fs::read_to_string(path).expect("error reading word file")
+            .split('\n')
+            .filter(|s| s.len() == 6 || s.len() == 4) // hardcode for now
+            .map(|s| s.to_lowercase())
+            .map(|e| (String::from(&e), Puzzle::make_variants(&e))).collect()
     }
 
     fn candidate_location(&self, existing: &str, candidate: &str, intersec: &str) -> Option<Vec<Point>> {

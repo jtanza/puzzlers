@@ -1,5 +1,3 @@
-use std::fs;
-use std::collections::HashMap;
 use std::time::Instant;
 use puzzle::Puzzle;
 
@@ -7,7 +5,7 @@ mod puzzle;
 
 fn main() {
     let iters = std::env::args().nth(1).expect("no iters given").parse::<i32>().unwrap();
-    let variation_map = words("/usr/share/dict/words/", 6);
+    let variation_map = Puzzle::build_var_map("/usr/share/dict/words/");
     let candidates = variation_map.keys().cloned().collect::<Vec<String>>();
     let mut total = 0;
 
@@ -26,12 +24,4 @@ fn main() {
         println!("\n{}\nPuzzle completed in: {}ms", puzzle, sw.elapsed().as_millis());
     }
     println!("\nCompleted {} iterations in {}ms. Average: {}ms.", iters, total, total / iters as u128);
-}
-
-fn words(path: &str, len: usize) -> HashMap<String, Vec<String>> {
-    fs::read_to_string(path).expect("error reading word file")
-        .split('\n')
-        .filter(|s| s.len() == len || s.len() == len - 2)
-        .map(|s| s.to_lowercase())
-        .map(|e| (String::from(&e), Puzzle::make_variants(&e))).collect()
 }
