@@ -1,6 +1,6 @@
 # wordsquare
 
-Creates word squares where each column/row is two characters wide.
+Creates word squares where each cell is two characters wide.
 
 ```
 jtanza @ ~/rust/wordsquare (master) $ cargo run /usr/share/dict/words 2  
