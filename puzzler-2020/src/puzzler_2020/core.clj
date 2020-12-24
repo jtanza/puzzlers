@@ -28,5 +28,5 @@
 
 (defn -main
   [& args]
-  (println (filter has-path? (filter meets-criteria? (read-words (first args))))))
+  (println (str/join "\n" (filter has-path? (filter meets-criteria? (read-words (first args)))))))
 
