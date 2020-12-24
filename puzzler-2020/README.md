@@ -1,44 +1,32 @@
 # puzzler-2020
 
-FIXME: description
+Find words by connecting letters. 
+* Start at any letter in the graph
+* Follow the lines to add letters
+* Can loop back to reuse letters
+* Can’t repeat a letter “in place” (no doubled letters)
+* No minimum or maximum length
+* Validate using word list (/usr/share/dict/words or similar)
 
-## Installation
-
-Download from http://example.com/FIXME.
 
 ## Usage
-
-FIXME: explanation
-
-    $ java -jar puzzler-2020-0.1.0-standalone.jar [args]
+```
+$ java -jar puzzler-2020-0.1.0-SNAPSHOT-standalone.jar /usr/share/dict/usa
+$ # or with leiningen:
+$ lein run /usr/share/dict/usa 
+```
 
 ## Options
 
-FIXME: listing of options this app accepts.
+Required input includes any list of newline separated words.
 
-## Examples
+## Example  
 
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2020 FIXME
-
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
-
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+```
+$ lein run /usr/share/dict/usa | grep -vwE '\w{1,5}' | sort --random-sort | head -n 5
+colons
+browns
+ocelot
+bronson
+nobler
+```
